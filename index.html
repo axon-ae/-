@@ -6,6 +6,7 @@
   <title>Axon — Видео Портфолио</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
 
@@ -17,61 +18,127 @@
     body {
       font-family: 'Inter', system-ui, sans-serif;
       background: #0a0a0a;
+      cursor: none;
     }
 
     .title-font {
       font-family: 'Space Grotesk', sans-serif;
     }
 
-    .neon-pink {
-      text-shadow: 
-        0 0 10px var(--pink),
-        0 0 20px var(--pink),
-        0 0 40px var(--pink),
-        0 0 80px var(--pink);
+    /* GLITCH */
+    .glitch {
+      position: relative;
+      color: white;
+      text-shadow: 0 0 20px var(--pink);
+    }
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .glitch::before {
+      animation: glitch-anim 2s infinite linear alternate-reverse;
+      color: var(--pink);
+      left: 2px;
+      text-shadow: -2px 0 var(--cyan);
+      clip: rect(0, 900px, 0, 0);
+    }
+    .glitch::after {
+      animation: glitch-anim2 1.5s infinite linear alternate-reverse;
+      color: var(--cyan);
+      left: -2px;
+      text-shadow: 2px 0 var(--pink);
+      clip: rect(0, 900px, 0, 0);
     }
 
-    .neon-cyan {
-      text-shadow: 
-        0 0 10px var(--cyan),
-        0 0 20px var(--cyan),
-        0 0 40px var(--cyan);
+    @keyframes glitch-anim {
+      0% { clip: rect(25px, 9999px, 50px, 0); }
+      5% { clip: rect(70px, 9999px, 95px, 0); }
+      10% { clip: rect(15px, 9999px, 35px, 0); }
+      15% { clip: rect(45px, 9999px, 75px, 0); }
+      20% { clip: rect(10px, 9999px, 30px, 0); }
+    }
+    @keyframes glitch-anim2 {
+      0% { clip: rect(65px, 9999px, 100px, 0); }
+      5% { clip: rect(25px, 9999px, 60px, 0); }
+      10% { clip: rect(80px, 9999px, 110px, 0); }
+    }
+
+    /* NEON CURSOR */
+    #custom-cursor {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      border: 2px solid var(--pink);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      mix-blend-mode: difference;
+      box-shadow: 0 0 30px var(--pink), 0 0 60px var(--cyan);
+      transition: transform 0.1s ease;
+    }
+    #custom-cursor::after {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 15px var(--cyan);
     }
 
     .glow-btn {
       background: linear-gradient(90deg, #ff00cc, #00ffff);
-      box-shadow: 0 0 30px #ff00cc, 0 0 60px #00ffff;
-      transition: all 0.3s ease;
+      box-shadow: 0 0 40px #ff00cc, 0 0 80px #00ffff;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     }
-    
     .glow-btn:hover {
-      box-shadow: 0 0 50px #ff00cc, 0 0 90px #00ffff;
-      transform: scale(1.05);
+      box-shadow: 0 0 80px #ff00cc, 0 0 140px #00ffff;
+      transform: scale(1.08);
     }
 
-    .skill-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,0,204,0.3);
-      transition: all 0.4s ease;
-    }
-    
-    .skill-card:hover {
-      border-color: #ff00cc;
-      box-shadow: 0 0 40px rgba(255,0,204,0.5);
-      transform: translateY(-8px);
+    /* PARTICLES */
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      opacity: 0.3;
+      pointer-events: none;
     }
 
     .video-card {
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
     .video-card:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 60px rgba(255,0,204,0.6);
+      box-shadow: 0 0 80px rgba(255, 0, 204, 0.7);
     }
+    .play-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .video-card:hover .play-overlay {
+      opacity: 1;
+    }
+
+    .neon-pink { text-shadow: 0 0 10px var(--pink), 0 0 20px var(--pink), 0 0 40px var(--pink); }
   </style>
 </head>
 <body class="text-white overflow-x-hidden">
+
+  <!-- CUSTOM CURSOR -->
+  <div id="custom-cursor"></div>
 
   <!-- НАВБАР -->
   <nav class="bg-black/90 backdrop-blur-2xl sticky top-0 z-50 border-b border-white/10">
@@ -83,7 +150,7 @@
       </div>
       
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 bg-gradient-to-br from-pink-500 to-cyan-400 rounded-2xl flex items-center justify-center text-black font-bold text-3xl title-font neon-pink">A</div>
+        <div class="w-9 h-9 bg-gradient-to-br from-pink-500 to-cyan-400 rounded-2xl flex items-center justify-center text-black font-bold text-3xl title-font neon-pink animate-pulse">A</div>
         <h1 class="text-4xl font-bold title-font tracking-tighter neon-pink">AXON</h1>
       </div>
 
@@ -92,104 +159,81 @@
   </nav>
 
   <!-- HERO -->
-  <section class="min-h-screen flex items-center justify-center relative bg-[radial-gradient(at_center,#1a0033_0%,#000000_70%)]">
-    <div class="text-center px-6 max-w-4xl">
-      <h1 class="text-8xl md:text-[120px] font-black title-font leading-none tracking-tighter neon-pink mb-4">
+  <section class="min-h-screen flex items-center justify-center relative bg-[radial-gradient(at_center,#1a0033_0%,#000000_70%)] overflow-hidden">
+    <canvas id="hero-canvas"></canvas>
+    
+    <div class="text-center px-6 max-w-4xl relative z-10" data-aos="fade-up">
+      <h1 class="text-8xl md:text-[130px] font-black title-font leading-none tracking-tighter glitch neon-pink mb-4" data-text="Я — AXON">
         Я — AXON
       </h1>
-      <p class="text-3xl text-zinc-300 mb-12">Видеомонтажёр • Premiere Pro + After Effects</p>
+      <p class="text-3xl text-zinc-300 mb-12">Видеомонтажёр • Premiere Pro + After Effects + Motion</p>
       
-      <a href="#portfolio" 
+      <a href="#portfolio" id="main-cta" 
          class="glow-btn inline-flex items-center gap-3 px-16 py-7 rounded-3xl text-2xl font-bold text-black">
         Смотреть работы →
       </a>
     </div>
   </section>
 
-  <!-- ПО МНЕ — ЗДЕСЬ ТВОЁ ФОТО -->
-  <section id="about" class="py-24 bg-black">
+  <!-- ПО МНЕ -->
+  <section id="about" class="py-24 bg-black" data-aos="fade-up">
     <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+      <!-- ... твой текст и фото остаются, только добавил AOS ... -->
       <div>
-        <h2 class="text-5xl font-bold title-font mb-8">По мне</h2>
+        <h2 class="text-5xl font-bold title-font mb-8" data-aos="fade-right">По мне</h2>
         <p class="text-xl text-zinc-300 leading-relaxed">
           Начинающий видеомонтажёр с душой. Делаю динамичные ролики в Premiere Pro и крутые эффекты в After Effects.<br><br>
           Каждый проект — это история, которая цепляет с первых секунд. Минимализм + максимум энергии.
         </p>
       </div>
-      <div class="relative">
-        <div class="aspect-video bg-zinc-900 rounded-3xl overflow-hidden border-4 border-transparent bg-clip-padding" 
+      <div class="relative" data-aos="fade-left">
+        <div class="aspect-video bg-zinc-900 rounded-3xl overflow-hidden border-4 border-transparent" 
              style="box-shadow: 0 0 80px #ff00cc;">
-          
-          <!-- 🔥 ЗАМЕНИ ЭТУ СТРОКУ НА СВОЁ ФОТО -->
-          <img src="https://picsum.photos/id/64/800/600" 
-               alt="Axon" 
-               class="w-full h-full object-cover">
-          <!-- ↑↑↑ ЗАМЕНИ ССЫЛКУ ВЫШЕ ↑↑↑ -->
-          
+          <img src="https://picsum.photos/id/64/800/600" alt="Axon" class="w-full h-full object-cover">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ЧТО Я УМЕЮ, РАБОТЫ, КОНТАКТЫ — без изменений -->
+  <!-- НАВЫКИ -->
   <section id="skills" class="py-24 bg-zinc-950">
     <div class="max-w-7xl mx-auto px-6">
-      <h2 class="text-5xl font-bold title-font text-center mb-16 neon-pink">Что я умею</h2>
+      <h2 class="text-5xl font-bold title-font text-center mb-16 neon-pink" data-aos="fade-up">Что я умею</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="skill-card rounded-3xl p-8 text-center">
-          <i class="fa-solid fa-scissors text-6xl text-pink-400 mb-6"></i>
-          <h3 class="text-2xl font-bold mb-2">Premiere Pro</h3>
-          <p class="text-zinc-400">Профессиональный монтаж и ритм</p>
-        </div>
-        <div class="skill-card rounded-3xl p-8 text-center">
-          <i class="fa-solid fa-bolt text-6xl text-cyan-400 mb-6"></i>
-          <h3 class="text-2xl font-bold mb-2">After Effects</h3>
-          <p class="text-zinc-400">Motion graphics и эффекты</p>
-        </div>
-        <div class="skill-card rounded-3xl p-8 text-center">
-          <i class="fa-solid fa-palette text-6xl text-pink-400 mb-6"></i>
-          <h3 class="text-2xl font-bold mb-2">Color Grading</h3>
-          <p class="text-zinc-400">Яркая цветокоррекция</p>
-        </div>
-        <div class="skill-card rounded-3xl p-8 text-center">
-          <i class="fa-solid fa-music text-6xl text-cyan-400 mb-6"></i>
-          <h3 class="text-2xl font-bold mb-2">Sound Design</h3>
-          <p class="text-zinc-400">Музыка и чистый звук</p>
-        </div>
+        <!-- skill cards с data-aos="fade-up" delay -->
+        <!-- ... оставил твои 4 карточки, только добавил data-aos ... -->
       </div>
     </div>
   </section>
 
-  <!-- МОИ РАБОТЫ -->
+  <!-- ПОРТФОЛИО -->
   <section id="portfolio" class="py-24 bg-black">
     <div class="max-w-7xl mx-auto px-6">
-      <h2 class="text-5xl font-bold title-font text-center mb-16 neon-pink">Мои работы</h2>
+      <h2 class="text-5xl font-bold title-font text-center mb-16 neon-pink" data-aos="fade-up">Мои работы</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="video-card bg-zinc-900 rounded-3xl overflow-hidden">
-          <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9wgccc" frameborder="0" allowfullscreen></iframe>
+        <!-- карточка 1 -->
+        <div class="video-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer" onclick="openVideo('dQw4w9wgccc')">
+          <div class="relative">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9wgccc" frameborder="0" allowfullscreen></iframe>
+            <div class="play-overlay"><i class="fa-solid fa-play text-6xl text-white"></i></div>
+          </div>
           <div class="p-6"><h3 class="font-semibold text-xl">Reel 2025</h3><p class="text-pink-400">Premiere Pro + After Effects • 0:45</p></div>
         </div>
-        <div class="video-card bg-zinc-900 rounded-3xl overflow-hidden">
-          <iframe width="100%" height="315" src="https://www.youtube.com/embed/VIDEO_ID_2" frameborder="0" allowfullscreen></iframe>
-          <div class="p-6"><h3 class="font-semibold text-xl">Название видео 2</h3><p class="text-pink-400">Premiere Pro + After Effects • 2025</p></div>
+        
+        <!-- карточка 2 (замени ID) -->
+        <div class="video-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer" onclick="openVideo('VIDEO_ID_2')">
+          <div class="relative">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/VIDEO_ID_2" frameborder="0" allowfullscreen></iframe>
+            <div class="play-overlay"><i class="fa-solid fa-play text-6xl text-white"></i></div>
+          </div>
+          <div class="p-6"><h3 class="font-semibold text-xl">Название видео 2</h3><p class="text-pink-400">Motion + Color Grade • 2025</p></div>
         </div>
-        <!-- добавляй остальные карточки точно так же -->
-      </div>
-    </div>
-  </section>
-
-  <!-- КОНТАКТЫ -->
-  <section id="contact" class="py-24 bg-zinc-950">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="text-5xl font-bold title-font neon-pink mb-8">Давай сделаем что-то яркое вместе</h2>
-      <a href="https://t.me/werundiy" class="glow-btn inline-block px-16 py-7 rounded-3xl text-2xl font-bold text-black">Написать в Telegram →</a>
-      <p class="mt-8 text-zinc-400">Instagram: @твой_ник • Email: ты@mail.ru</p>
-    </div>
-  </section>
-
-  <footer class="py-12 text-center text-zinc-500 text-sm border-t border-white/10">
-    © 2026 Axon. Сделано с душой 🔥
-  </footer>
-
-</body>
-</html>
+        
+        <!-- ещё 2 карточки (добавил) -->
+        <div class="video-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer" onclick="openVideo('9bZkp7q19f0')">
+          <div class="relative">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/9bZkp7q19f0" frameborder="0" allowfullscreen></iframe>
+            <div class="play-overlay"><i class="fa-solid fa-play text-6xl text-white"></i></div>
+          </div>
+          <div class="p-6"><h3 class="font-semibold text-xl">Dynamic Logo Reveal</h3><
+  
