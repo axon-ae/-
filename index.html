@@ -6,251 +6,180 @@
   <title>Axon — Видео Портфолио</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap');
 
-    :root {
-      --accent: #a78bfa;
-    }
+    :root { --accent: #a78bfa; }
 
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: #050505;
-    }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #050505; }
 
-    .title-font {
-      font-family: 'Space Grotesk', sans-serif;
+    .title-font { font-family: 'Space Grotesk', sans-serif; }
+
+    .horizontal-scroll {
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
     }
+    .horizontal-scroll::-webkit-scrollbar { display: none; }
+
+    .work-card {
+      scroll-snap-align: start;
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .work-card:hover { transform: scale(1.04); }
 
     .glow-btn {
-      background: white;
-      color: black;
+      background: white; color: black;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .glow-btn:hover {
-      background: var(--accent);
-      color: white;
-      transform: translateY(-2px);
-    }
-
-    .video-card {
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .video-card:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
-    }
-
-    .modal {
-      animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    @keyframes modalPop {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
+    .glow-btn:hover { background: var(--accent); color: white; }
   </style>
 </head>
 <body class="text-white overflow-x-hidden">
 
   <!-- NAVBAR -->
-  <nav class="bg-black/80 backdrop-blur-2xl sticky top-0 z-50 border-b border-white/5">
+  <nav class="bg-black/90 backdrop-blur-2xl fixed top-0 w-full z-50 border-b border-white/5">
     <div class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
       <div class="flex items-center gap-3">
         <div class="w-8 h-8 bg-violet-500 rounded-2xl flex items-center justify-center font-bold text-2xl">A</div>
         <h1 class="text-3xl font-bold title-font tracking-tighter">AXON</h1>
       </div>
-
-      <div class="hidden md:flex items-center gap-x-10 text-sm font-medium">
-        <a href="#about" class="hover:text-violet-400 transition">Обо мне</a>
-        <a href="#skills" class="hover:text-violet-400 transition">Навыки</a>
-        <a href="#portfolio" class="hover:text-violet-400 transition">Работы</a>
-        <a href="#contact" class="hover:text-violet-400 transition">Контакты</a>
-      </div>
-
-      <a href="#contact" class="px-7 py-3.5 bg-white text-black rounded-2xl font-semibold text-sm hover:bg-violet-500 hover:text-white transition">
-        Связаться
-      </a>
+      <a href="#contact" class="px-8 py-3 bg-white text-black rounded-3xl font-semibold hover:bg-violet-500 hover:text-white transition">Связаться</a>
     </div>
   </nav>
 
   <!-- HERO -->
-  <section class="min-h-screen flex items-center justify-center relative bg-gradient-to-b from-[#050505] to-black">
-    <div class="text-center px-6 max-w-5xl" data-aos="fade-up">
-      <h1 class="text-7xl md:text-[110px] font-bold title-font leading-[0.95] tracking-tighter mb-6">
-        Я — AXON
-      </h1>
-      <p class="text-2xl md:text-3xl text-zinc-400 mb-12 max-w-2xl mx-auto">
-        Видеомонтажёр и motion-дизайнер.<br>Рассказываю истории через движение и эмоцию.
-      </p>
-      
-      <a href="#portfolio" class="glow-btn inline-flex items-center gap-3 px-12 py-6 rounded-3xl text-xl font-semibold">
+  <section class="min-h-screen flex items-center justify-center bg-gradient-to-b from-black to-zinc-950 pt-20">
+    <div class="text-center px-6 max-w-4xl">
+      <h1 class="text-7xl md:text-[120px] font-bold title-font leading-none tracking-tighter mb-6">Я — AXON</h1>
+      <p class="text-3xl text-zinc-400 mb-12">Видеомонтажёр • Motion Designer</p>
+      <a href="#works" class="glow-btn inline-flex items-center gap-4 px-14 py-7 rounded-3xl text-2xl font-semibold">
         Смотреть работы
-        <i class="fa-solid fa-arrow-down text-sm"></i>
-      </a>
-    </div>
-
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-xs tracking-widest opacity-50">
-      <span>SCROLL</span>
-      <i class="fa-solid fa-chevron-down animate-bounce"></i>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about" class="py-28 bg-black">
-    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-      <div data-aos="fade-right">
-        <h2 class="text-5xl font-bold title-font mb-10">По мне</h2>
-        <div class="space-y-6 text-lg text-zinc-300">
-          <p>Начинающий, но уже довольно требовательный к себе видеомонтажёр.</p>
-          <p>Работаю в Premiere Pro и After Effects. Люблю чистый монтаж, мощный motion и сильный storytelling.</p>
-          <p>Для меня важно, чтобы видео не просто "было", а <span class="text-violet-400">цепляло</span> с первых трёх секунд.</p>
-        </div>
-      </div>
-      
-      <div class="relative" data-aos="fade-left">
-        <div class="aspect-[16/10] bg-zinc-900 rounded-3xl overflow-hidden border border-white/10">
-          <img src="https://picsum.photos/id/1015/1200/800" alt="Axon" class="w-full h-full object-cover">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills" class="py-28 bg-zinc-950">
-    <div class="max-w-7xl mx-auto px-6">
-      <h2 class="text-5xl font-bold title-font text-center mb-16" data-aos="fade-up">Что я умею</h2>
-      
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="bg-zinc-900 p-8 rounded-3xl" data-aos="fade-up" data-aos-delay="100">
-          <i class="fa-solid fa-film text-4xl text-violet-400 mb-6"></i>
-          <h3 class="text-2xl font-semibold mb-3">Premiere Pro</h3>
-          <p class="text-zinc-400">Профессиональный монтаж, цветокоррекция, работа со звуком</p>
-        </div>
-        <div class="bg-zinc-900 p-8 rounded-3xl" data-aos="fade-up" data-aos-delay="200">
-          <i class="fa-solid fa-bolt text-4xl text-violet-400 mb-6"></i>
-          <h3 class="text-2xl font-semibold mb-3">After Effects</h3>
-          <p class="text-zinc-400">Motion design, анимации, сложные эффекты и VFX</p>
-        </div>
-        <div class="bg-zinc-900 p-8 rounded-3xl" data-aos="fade-up" data-aos-delay="300">
-          <i class="fa-solid fa-palette text-4xl text-violet-400 mb-6"></i>
-          <h3 class="text-2xl font-semibold mb-3">Color Grading</h3>
-          <p class="text-zinc-400">Киношный цвет, настроение и визуальная стилистика</p>
-        </div>
-        <div class="bg-zinc-900 p-8 rounded-3xl" data-aos="fade-up" data-aos-delay="400">
-          <i class="fa-solid fa-wand-magic-sparkles text-4xl text-violet-400 mb-6"></i>
-          <h3 class="text-2xl font-semibold mb-3">Motion Design</h3>
-          <p class="text-zinc-400">Анимированные логотипы, переходы, инфографика</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PORTFOLIO -->
-  <section id="portfolio" class="py-28 bg-black">
-    <div class="max-w-7xl mx-auto px-6">
-      <h2 class="text-5xl font-bold title-font text-center mb-16" data-aos="fade-up">Мои работы</h2>
-      
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid"></div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="py-28 bg-zinc-950">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="text-5xl font-bold title-font mb-8">Давай создадим что-то крутое</h2>
-      <p class="text-xl text-zinc-400 mb-10">Готов к новым проектам — коммерческим, музыкальным, личным брендам.</p>
-      <a href="mailto:your@email.com" class="inline-flex items-center gap-4 text-2xl border-b-2 border-violet-500 pb-1 hover:text-violet-400 transition">
-        Написать мне 
         <i class="fa-solid fa-arrow-right"></i>
       </a>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="bg-black py-12 border-t border-white/5">
-    <div class="max-w-7xl mx-auto px-6 text-center text-zinc-500 text-sm">
-      © 2026 Axon. Сделано с душой и вниманием к деталям.
-    </div>
-  </footer>
+  <!-- FEATURED WORKS — ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ -->
+  <section id="works" class="py-20 bg-black">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-5xl font-bold title-font mb-12">Featured Works</h2>
+      
+      <div class="horizontal-scroll flex gap-8 overflow-x-auto pb-12 snap-x">
+        <!-- Карточки -->
+        <div onclick="openVideo('9bZkp7q19f0')" class="work-card bg-zinc-900 min-w-[420px] rounded-3xl overflow-hidden cursor-pointer">
+          <img src="https://picsum.photos/id/1015/800/600" class="w-full aspect-video object-cover">
+          <div class="p-8">
+            <h3 class="text-2xl font-semibold">Reel 2026</h3>
+            <p class="text-violet-400">Best of • Premiere + After Effects • 1:12</p>
+          </div>
+        </div>
 
-  <!-- VIDEO MODAL -->
-  <div id="video-modal" class="hidden fixed inset-0 bg-black/95 z-[9999] flex items-center justify-center">
-    <div class="modal bg-zinc-900 rounded-3xl overflow-hidden max-w-5xl w-full mx-4">
-      <div class="flex justify-end p-4">
-        <button onclick="closeModal()" class="text-3xl text-zinc-400 hover:text-white">×</button>
+        <div onclick="openVideo('3JZ_D3ELwOQ')" class="work-card bg-zinc-900 min-w-[420px] rounded-3xl overflow-hidden cursor-pointer">
+          <img src="https://picsum.photos/id/201/800/600" class="w-full aspect-video object-cover">
+          <div class="p-8">
+            <h3 class="text-2xl font-semibold">Logo Animation</h3>
+            <p class="text-violet-400">Motion Design • After Effects</p>
+          </div>
+        </div>
+
+        <div onclick="openVideo('jNQXAC9IVRw')" class="work-card bg-zinc-900 min-w-[420px] rounded-3xl overflow-hidden cursor-pointer">
+          <img src="https://picsum.photos/id/237/800/600" class="w-full aspect-video object-cover">
+          <div class="p-8">
+            <h3 class="text-2xl font-semibold">Fashion Campaign</h3>
+            <p class="text-violet-400">Commercial Video • Color Grade</p>
+          </div>
+        </div>
+
+        <!-- Добавь ещё 3 своих — просто копируй блок и меняй ID + изображение -->
+        <div onclick="openVideo('VIDEO_ID_4')" class="work-card bg-zinc-900 min-w-[420px] rounded-3xl overflow-hidden cursor-pointer">
+          <img src="https://picsum.photos/id/29/800/600" class="w-full aspect-video object-cover">
+          <div class="p-8">
+            <h3 class="text-2xl font-semibold">Music Video</h3>
+            <p class="text-violet-400">VFX + Motion</p>
+          </div>
+        </div>
       </div>
-      <div class="aspect-video" id="modal-video-container"></div>
+    </div>
+  </section>
+
+  <!-- MY STORY -->
+  <section class="py-28 bg-zinc-950">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+      <div>
+        <h2 class="text-5xl font-bold title-font mb-10">My Story</h2>
+        <p class="text-xl text-zinc-300 leading-relaxed">
+          Начинающий видеомонтажёр, который живёт движением и эмоцией.<br><br>
+          Каждый ролик — это не просто монтаж, а история, которая заставляет зрителя остановиться и досмотреть до конца.
+        </p>
+      </div>
+      <div class="relative">
+        <img src="https://picsum.photos/id/64/800/600" class="rounded-3xl shadow-2xl" alt="Axon">
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW I WORK -->
+  <section class="py-28 bg-black">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-5xl font-bold title-font text-center mb-16">How I Work</h2>
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto bg-violet-500/10 rounded-2xl flex items-center justify-center text-4xl mb-6">1</div>
+          <h3 class="font-semibold text-xl mb-2">Brief</h3>
+          <p class="text-zinc-400">Понимаю задачу и настроение проекта</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto bg-violet-500/10 rounded-2xl flex items-center justify-center text-4xl mb-6">2</div>
+          <h3 class="font-semibold text-xl mb-2">Script + Moodboard</h3>
+          <p class="text-zinc-400">Создаю концепцию и референсы</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto bg-violet-500/10 rounded-2xl flex items-center justify-center text-4xl mb-6">3</div>
+          <h3 class="font-semibold text-xl mb-2">Montage & Motion</h3>
+          <p class="text-zinc-400">Premiere Pro + After Effects</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto bg-violet-500/10 rounded-2xl flex items-center justify-center text-4xl mb-6">4</div>
+          <h3 class="font-semibold text-xl mb-2">Final Delivery</h3>
+          <p class="text-zinc-400">Цвет + звук + экспорт</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="py-28 bg-zinc-950 text-center">
+    <div class="max-w-xl mx-auto px-6">
+      <h2 class="text-5xl font-bold title-font mb-8">Давай сделаем что-то крутое вместе</h2>
+      <a href="mailto:your@email.com" class="text-3xl border-b-2 border-violet-400 pb-1 hover:text-violet-400 transition">
+        Написать мне прямо сейчас →
+      </a>
+    </div>
+  </section>
+
+  <!-- VIDEO MODAL (тот же) -->
+  <div id="video-modal" class="hidden fixed inset-0 bg-black/95 z-[9999] flex items-center justify-center">
+    <div class="bg-zinc-900 rounded-3xl max-w-5xl w-full mx-4 overflow-hidden">
+      <div class="flex justify-end p-4"><button onclick="closeModal()" class="text-4xl">×</button></div>
+      <div id="modal-video" class="aspect-video"></div>
     </div>
   </div>
 
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({ once: true, duration: 800 });
-
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        if (this.getAttribute('href') !== '#') {
-          e.preventDefault();
-          document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-
-    // Video Modal
-    function openVideo(videoId) {
-      const container = document.getElementById('modal-video-container');
-      container.innerHTML = `
-        <iframe width="100%" height="100%" 
-                src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen></iframe>`;
+    function openVideo(id) {
+      document.getElementById('modal-video').innerHTML = `
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1" 
+                frameborder="0" allowfullscreen></iframe>`;
       document.getElementById('video-modal').classList.remove('hidden');
       document.getElementById('video-modal').classList.add('flex');
     }
-
     function closeModal() {
       const modal = document.getElementById('video-modal');
       modal.classList.add('hidden');
       modal.classList.remove('flex');
-      document.getElementById('modal-video-container').innerHTML = '';
+      document.getElementById('modal-video').innerHTML = '';
     }
-
-    // Portfolio Data (замени ID и thumb на свои работы)
-    const works = [
-      { id: "9bZkp7q19f0", title: "Reel 2026", desc: "Best of 2025 • 1:12", thumb: "https://picsum.photos/id/1015/800/600" },
-      { id: "3JZ_D3ELwOQ", title: "Dynamic Logo Reveal", desc: "Motion Design • After Effects", thumb: "https://picsum.photos/id/201/800/600" },
-      { id: "jNQXAC9IVRw", title: "Fashion Campaign", desc: "Commercial • Premiere Pro", thumb: "https://picsum.photos/id/237/800/600" },
-      { id: "VIDEO_ID_4", title: "Music Video Teaser", desc: "Color + VFX", thumb: "https://picsum.photos/id/29/800/600" },
-      { id: "VIDEO_ID_5", title: "Corporate Story", desc: "Branding Video", thumb: "https://picsum.photos/id/180/800/600" },
-      { id: "VIDEO_ID_6", title: "Product Animation", desc: "3D Motion", thumb: "https://picsum.photos/id/201/800/600" }
-    ];
-
-    function renderPortfolio() {
-      const grid = document.getElementById('portfolio-grid');
-      grid.innerHTML = works.map(work => `
-        <div class="video-card bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer group" onclick="openVideo('${work.id}')">
-          <div class="relative">
-            <img src="${work.thumb}" class="w-full aspect-video object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-center justify-center">
-              <i class="fa-solid fa-play text-6xl text-white/90 group-hover:scale-110 transition"></i>
-            </div>
-          </div>
-          <div class="p-6">
-            <h3 class="font-semibold text-xl mb-1">${work.title}</h3>
-            <p class="text-violet-400 text-sm">${work.desc}</p>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    window.onload = renderPortfolio;
-
-    // ESC close
-    document.addEventListener('keydown', e => { if (e.key === "Escape") closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
   </script>
 </body>
-  </html>    
+</html>
