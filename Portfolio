@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>i.cut.it — монтаж Reels</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; }
+    .hero-bg { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://picsum.photos/2000/1200') center/cover no-repeat; }
+    .card-hover { transition: all 0.3s; }
+    .card-hover:hover { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2); }
+  </style>
+</head>
+<body class="bg-zinc-950 text-white">
+
+  <!-- NAV -->
+  <nav class="fixed top-0 w-full bg-zinc-950/80 backdrop-blur z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-red-500 rounded-xl flex items-center justify-center text-xl font-bold">i</div>
+        <span class="text-2xl font-bold tracking-tight">cut.it</span>
+      </div>
+      <div class="hidden md:flex gap-8">
+        <a href="#services" class="hover:text-red-400 transition">Услуги</a>
+        <a href="#portfolio" class="hover:text-red-400 transition">Портфолио</a>
+        <a href="#blog" class="hover:text-red-400 transition">Блог</a>
+        <a href="#contact" class="hover:text-red-400 transition">Контакты</a>
+      </div>
+      <a href="#contact" class="bg-red-500 hover:bg-red-600 px-6 py-3 rounded-2xl font-medium">Заказать монтаж</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-bg h-screen flex items-center">
+    <div class="max-w-4xl mx-auto text-center px-6">
+      <h1 class="text-6xl md:text-7xl font-bold mb-6 leading-tight">
+        Монтаж Reels,<br>который продаёт
+      </h1>
+      <p class="text-2xl text-zinc-400 mb-10">AI • VFX • SFX • Экспертный контент</p>
+      <a href="#contact" class="inline-block bg-red-500 hover:bg-red-600 text-xl font-medium px-10 py-5 rounded-3xl transition">
+        Получить монтаж за 3 дня →
+      </a>
+    </div>
+  </section>
+
+  <!-- УСЛУГИ -->
+  <section id="services" class="py-24 bg-zinc-900">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-5xl font-bold text-center mb-16">Что я делаю</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- карточки услуг (4 шт) -->
+        <div class="bg-zinc-800 p-8 rounded-3xl card-hover">
+          <i class="fa-solid fa-film text-5xl text-red-400 mb-6"></i>
+          <h3 class="text-2xl font-bold mb-3">Reels / Shorts / TikTok</h3>
+          <p class="text-zinc-400">До 60 секунд — максимальный хук и конверсия</p>
+        </div>
+        <div class="bg-zinc-800 p-8 rounded-3xl card-hover">
+          <i class="fa-solid fa-wand-magic-sparkles text-5xl text-red-400 mb-6"></i>
+          <h3 class="text-2xl font-bold mb-3">AI + VFX</h3>
+          <p class="text-zinc-400">Эффекты, которые выглядят дорого</p>
+        </div>
+        <!-- ещё две карточки — добавь сам или скажи, я допишу -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ПОРТФОЛИО -->
+  <section id="portfolio" class="py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-5xl font-bold text-center mb-16">Последние работы</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Замени ссылки на свои YouTube или Vimeo -->
+        <iframe width="100%" height="300" src="https://www.youtube.com/embed/dQw4w9wgccc" title="YouTube video" frameborder="0" allowfullscreen class="rounded-3xl"></iframe>
+        <!-- повтори ещё 2-3 раза -->
+      </div>
+    </div>
+  </section>
+
+  <!-- БЛОГ (как на icutit.ru) -->
+  <section id="blog" class="py-24 bg-zinc-900">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-5xl font-bold text-center mb-16">Блог</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <a href="#" class="block bg-zinc-800 rounded-3xl overflow-hidden card-hover">
+          <div class="h-48 bg-zinc-700"></div>
+          <div class="p-8">
+            <h3 class="font-bold text-xl mb-2">Вред паков: почему готовые пресеты мешают развитию</h3>
+            <p class="text-zinc-400 text-sm">15 марта 2026</p>
+          </div>
+        </a>
+        <!-- ещё 5 карточек — копируй и меняй заголовки из реального блога -->
+      </div>
+    </div>
+  </section>
+
+  <!-- КОНТАКТЫ + ФОРМА -->
+  <section id="contact" class="py-24">
+    <div class="max-w-2xl mx-auto text-center px-6">
+      <h2 class="text-5xl font-bold mb-8">Давай сделаем твой контент огонь 🔥</h2>
+      <form class="space-y-6">
+        <input type="text" placeholder="Имя" class="w-full bg-zinc-800 rounded-2xl px-6 py-5">
+        <input type="tel" placeholder="Telegram / WhatsApp" class="w-full bg-zinc-800 rounded-2xl px-6 py-5">
+        <textarea placeholder="Опиши задачу" rows="5" class="w-full bg-zinc-800 rounded-2xl px-6 py-5"></textarea>
+        <button type="submit" class="w-full bg-red-500 hover:bg-red-600 py-6 text-xl font-medium rounded-3xl">
+          Отправить заявку
+        </button>
+      </form>
+      <p class="mt-8 text-zinc-400">или пиши сразу в Telegram: <a href="#" class="text-red-400">@icutit</a></p>
+    </div>
+  </section>
+
+  <footer class="bg-black py-12 text-center text-zinc-500 text-sm">
+    © 2026 i.cut.it — монтаж Reels и экспертного контента
+  </footer>
+
+  <script>
+    // простая анимация при скролле (можно расширить)
+    document.querySelectorAll('.card-hover').forEach(el => {
+      el.addEventListener('mouseenter', () => el.style.transform = 'scale(1.03)');
+    });
+  </script>
+</body>
+</html>
